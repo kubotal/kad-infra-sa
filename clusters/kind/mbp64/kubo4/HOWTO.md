@@ -58,12 +58,13 @@ kind create cluster --config /tmp/kind-config.yaml
 ```
 export GITHUB_USER=SergeAlexandre
 export GITHUB_REPO=kad-infra-sa
+export GIT_BRANCH=work2
 export GITHUB_TOKEN=
 
 flux bootstrap github \
 --owner=${GITHUB_USER} \
 --repository=${GITHUB_REPO} \
---branch=work1 \
+--branch=${GIT_BRANCH} \
 --interval 15s \
 --owner kubotal \
 --path=clusters/kind/mbp64/kubo4/flux
