@@ -6,7 +6,7 @@ gitRepositories:
     watched: true
     interval: 30s
     ref:
-      tag: v0.1.0
+      branch: sa-work1
     url: https://github.com/kubotal/kad-components.git
 
 #   Replaced by flux-system/flux-system
