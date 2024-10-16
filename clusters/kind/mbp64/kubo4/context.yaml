@@ -1,0 +1,123 @@
+# Context specific to a kind cluster named 'kubo4'
+
+context:
+
+  cluster:
+    name: kubo4
+    domain: kubo4.mbp
+
+  ingress:
+    url: ingress.kubo4.mbp
+    kubernetes:
+      enabled: true
+
+
+  minio:
+    ldapSettings:
+      openldap:
+        environment:
+          MINIO_IDENTITY_LDAP_SERVER_ADDR: "openldap.openldap.svc:636"
+          MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN: "cn=admin,dc=odp,dc=com"
+          MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD: "admin123"
+          MINIO_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN: "ou=Users,dc=odp,dc=com"
+          MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER: "(uid=%s)"
+          MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN: "ou=Groups,dc=odp,dc=com"
+          MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER: "(&(objectclass=posixGroup)(memberUid=%s))"
+          MINIO_IDENTITY_LDAP_TLS_SKIP_VERIFY: "on"
+          MINIO_IDENTITY_LDAP_SERVER_INSECURE: "off"
+          MINIO_IDENTITY_LDAP_SERVER_STARTTLS: "off"
+          MINIO_IDENTITY_LDAP_SRV_RECORD_NAME: ""
+          MINIO_IDENTITY_LDAP_COMMENT: "in-cluster openldap server"
+
+
+  # To generate passwords: 'slappasswd -s myPassword' on an ldap node
+  openldap:
+    replicaCount: 2
+    customLdifFiles:
+      00-root.ldif: |-
+        # Root creation
+        dn: dc=odp,dc=com
+        objectClass: dcObject
+        objectClass: organization
+        o: OpenDataPlatform
+
+      01-base-ou.ldif: |-
+        dn: ou=Users,dc=odp,dc=com
+        objectClass: organizationalUnit
+        ou: Users
+
+        dn: ou=Groups,dc=odp,dc=com
+        objectClass: organizationalUnit
+        ou: Groups
+
+      03-first-groups.ldif: |-
+        dn: cn=devs,ou=Groups,dc=odp,dc=com
+        objectclass: posixGroup
+        objectclass: top
+        gidnumber: 500
+        cn: devs
+        memberUid: alaint
+        memberUid: alext
+
+        dn: cn=ops,ou=Groups,dc=odp,dc=com
+        objectclass: posixGroup
+        objectclass: top
+        gidnumber: 501
+        cn: ops
+        memberUid: sergea
+        memberUid: moncefl
+
+      05-first-users.ldif: |-
+        dn: uid=sergea,ou=Users,dc=odp,dc=com
+        cn: Serge ALEXANDRE
+        objectclass: inetOrgPerson
+        objectclass: top
+        sn: ALEXANDRE
+        uid: sergea
+        mail: salexandre@odp.com
+        userpassword: {SSHA}RJB2fZdnwqAV6tcUbcLm+Awzt2CEinBT
+
+        dn: uid=moncefl,ou=Users,dc=odp,dc=com
+        cn: Moncef LAHOUAR
+        objectclass: inetOrgPerson
+        objectclass: top
+        sn: LAHOUAR
+        uid: moncefl
+        mail: moncefl@odp.com
+        userpassword: moncefl123
+
+        dn: uid=idiri,ou=Users,dc=odp,dc=com
+        cn: Idir IZITOUNENE
+        objectclass: inetOrgPerson
+        objectclass: top
+        sn: IZITOUNENE
+        uid: idiri
+        mail: idiri@odp.com
+        userpassword: idiri123
+
+        dn: uid=julest,ou=Users,dc=odp,dc=com
+        cn: Jules TESTEUR
+        objectclass: inetOrgPerson
+        objectclass: top
+        sn: TESTEUR
+        uid: julest
+        mail: julest@odp.com
+        userpassword: julest123
+
+        dn: uid=alaint,ou=Users,dc=odp,dc=com
+        cn: Alain TERIEUR
+        objectclass: inetOrgPerson
+        objectclass: top
+        sn: TERIEUR
+        uid: alaint
+        mail: alaint@odp.com
+        userpassword: alaint123
+
+        dn: uid=alext,ou=Users,dc=odp,dc=com
+        cn: Alex TERIEUR
+        objectclass: inetOrgPerson
+        objectclass: top
+        sn: TERIEUR
+        uid: alext
+        mail: alext@odp.com
+        userpassword: alext123

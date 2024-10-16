@@ -1,0 +1,7 @@
+# Context part shared by all kind based clusters
+
+context:
+
+  storageClass:
+    data: standard
+    workspace: standard

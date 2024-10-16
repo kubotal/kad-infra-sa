@@ -1,0 +1,101 @@
+
+
+gitRepositories:
+
+  - name: kad-components
+    watched: true
+    interval: 30s
+    ref:
+      tag: v0.1.0
+    url: https://github.com/kubotal/kad-components.git
+
+#   Replaced by flux-system/flux-system
+#  - name: kad-infra-sa
+#    url: ssh://git@github.com/kubotal/kad-infra-sa
+#    ref:
+#      branch: work1
+#    secretRef: flux-system
+
+
+loaders:
+  - name: kad-components
+    source:
+      gitRepository:
+        name: kad-components
+    kadFiles:
+      - components
+      - compositions
+
+  - name: context
+    source:
+      gitRepository:
+        # name: kad-infra-sa
+        name: flux-system
+        namespace: flux-system
+        unmanaged: true
+    kadFiles:
+      - clusters/context.yaml
+      - clusters/kind/context.yaml
+      - clusters/kind/mbp64/context.yaml
+      - clusters/kind/mbp64/kubo4/context.yaml
+
+deployments:
+
+  - name: system-base
+    composition:
+      name: system-base
+      version: 1.0.0
+
+  - name: tools
+    composition:
+      name: tools
+      version: 1.0.0
+      parameters:
+        reloader: true
+
+  - name: minio1
+    composition:
+      name: minio-1
+      version: 1.0.0
+      parameters:
+        namespace: minio1
+        capacityGb: 10
+        ingressName: minio1
+
+  - name: minio2
+    composition:
+      name: minio-1
+      version: 1.0.0
+      parameters:
+        namespace: minio2
+        capacityGb: 10
+        ingressName: minio2
+        ldap: openldap
+        dependsOn:
+          - openldap
+
+
+releases:
+
+  - name: cnpg
+    namespace: cnpg
+    component:
+      name: cnpg
+      version: 1.0.0
+
+
+  - name: openldap
+    enabled: true
+    component:
+      name: openldap
+      version: 1.0.0
+      parameters:
+        ldapDomain: "odp.com"
+        adminUser: admin
+        adminPassword: admin123
+        configUser: "admin"
+        configPassword: admin123
+    namespace: openldap
+    dependsOn:
+      - ingress-nginx
+
