@@ -82,9 +82,9 @@ deployments:
         capacityGb: 10
         ingressName: minio1
       parameterFiles:
-        document: data1-minio-parameters
-        unwrap: minio
-        wrap: admin
+        - document: data1-minio-parameters
+          unwrap: minio
+          wrap: admin
 
   - name: minio2
     composition:
@@ -98,9 +98,9 @@ deployments:
         dependsOn:
           - openldap
       parameterFiles:
-        document: data2-minio-parameters
-        unwrap: minio
-        wrap: admin
+        - document: data2-minio-parameters
+          unwrap: minio
+          wrap: admin
 
 
 releases:
