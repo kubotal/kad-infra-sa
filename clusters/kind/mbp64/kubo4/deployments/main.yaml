@@ -8,6 +8,12 @@ gitRepositories:
     ref:
       branch: sa-work1
     url: https://github.com/kubotal/kad-components.git
+  - name: kad-data1
+    interval: 30s
+    url: https://github.com/SergeAlexandre/kad-data1.git
+  - name: kad-data2
+    interval: 30s
+    url: https://github.com/SergeAlexandre/kad-data2.git
 
 #   Replaced by flux-system/flux-system
 #  - name: kad-infra-sa
@@ -25,6 +31,20 @@ loaders:
     kadFiles:
       - components
       - compositions
+  - name: kad-data1
+    source:
+      gitRepository:
+        name: kad-data1
+    kadFiles:
+      - data
+  - name: kad-data2
+    source:
+      gitRepository:
+        name: kad-data2
+    kadFiles:
+      - data
+
+
 
   - name: context
     source:
@@ -61,6 +81,10 @@ deployments:
         namespace: minio1
         capacityGb: 10
         ingressName: minio1
+        parameterFiles:
+          document: data1-minio-parameters
+          unwrap: minio
+          wrap: admin
 
   - name: minio2
     composition:
@@ -71,6 +95,10 @@ deployments:
         capacityGb: 10
         ingressName: minio2
         ldap: openldap
+        parameterFiles:
+          document: data2-minio-parameters
+          unwrap: minio
+          wrap: admin
         dependsOn:
           - openldap
 
