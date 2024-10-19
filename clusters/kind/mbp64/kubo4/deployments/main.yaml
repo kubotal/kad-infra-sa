@@ -31,20 +31,27 @@ loaders:
     kadFiles:
       - components
       - compositions
+    rules:
+      component: '^.*$'
+      composition: '^.*$'
+
   - name: kad-data1
     source:
       gitRepository:
         name: kad-data1
     kadFiles:
       - data
+    rules:
+      document: '^data1-.*$'
+
   - name: kad-data2
     source:
       gitRepository:
         name: kad-data2
     kadFiles:
       - data
-
-
+    rules:
+      document: '^data2-.*$'
 
   - name: context
     source:
