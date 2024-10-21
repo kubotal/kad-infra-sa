@@ -45,7 +45,7 @@ spec:
       primarySources:
         - location: /kad-controller
           kadFiles:
-            - templates
+            - tmpl
         - name: flux-system
           namespace: flux-system
           kadFiles:
