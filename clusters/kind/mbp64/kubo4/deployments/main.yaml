@@ -110,7 +110,7 @@ deployments:
           wrap: admin
 
 
-releases:
+cmpReleases:
 
   - name: cnpg
     namespace: cnpg
