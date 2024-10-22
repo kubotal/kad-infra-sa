@@ -66,7 +66,7 @@ loaders:
       - clusters/kind/mbp64/context.yaml
       - clusters/kind/mbp64/kubo4/context.yaml
 
-deployments:
+templateReleases:
 
   - name: system-base
     template:
