@@ -30,10 +30,10 @@ loaders:
         name: kad-components
     kadFiles:
       - components
-      - compositions
+      - templates
     rules:
       component: '^.*$'
-      composition: '^.*$'
+      template: '^.*$'
 
   - name: kad-data1
     source:
@@ -69,19 +69,19 @@ loaders:
 deployments:
 
   - name: system-base
-    composition:
+    template:
       name: system-base
       version: 1.0.0
 
   - name: tools
-    composition:
+    template:
       name: tools
       version: 1.0.0
       parameters:
         reloader: true
 
   - name: minio1
-    composition:
+    template:
       name: minio-1
       version: 1.0.0
       parameters:
@@ -94,7 +94,7 @@ deployments:
           wrap: admin
 
   - name: minio2
-    composition:
+    template:
       name: minio-1
       version: 1.0.0
       parameters:
