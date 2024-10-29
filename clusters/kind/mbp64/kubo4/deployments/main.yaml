@@ -112,6 +112,16 @@ templateReleases:
 
 componentReleases:
 
+  - name: kad-webserver
+    component:
+      name: kad-webserver
+      version: 1.0.0
+      parameters:
+        debug: true
+    namespace: flux-system
+    dependsOn:
+      - ingress-nginx
+
   - name: cnpg
     namespace: cnpg
     component:
