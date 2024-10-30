@@ -113,6 +113,7 @@ templateReleases:
 componentReleases:
 
   - name: kad-webserver
+    enabled: false
     component:
       name: kad-webserver
       version: 1.0.0
