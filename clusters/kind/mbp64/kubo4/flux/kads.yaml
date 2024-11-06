@@ -50,6 +50,11 @@ spec:
           namespace: flux-system
           kadFiles:
             - clusters/kind/mbp64/kubo4/deployments
+            - clusters/context.yaml
+            - clusters/kind/context.yaml
+            - clusters/kind/mbp64/context.yaml
+            - clusters/kind/mbp64/kubo4/context.yaml
+            - kad-components.yaml
       sweepPeriod: 2m # TODO: Set to 1h after setup
     logger:
       mode: dev

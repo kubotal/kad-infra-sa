@@ -9,6 +9,7 @@ gitRepositories:
     ref:
       branch: sa-work1
     url: https://github.com/kubotal/kad-components.git
+
   - name: kad-data1
     interval: 30s
     url: https://github.com/SergeAlexandre/kad-data1.git
@@ -25,16 +26,6 @@ gitRepositories:
 
 
 loaders:
-  - name: kad-components
-    source:
-      gitRepository:
-        name: kad-components
-    kadFiles:
-      - components
-      - templates
-    rules:
-      component: '^.*$'
-      template: '^.*$'
 
   - name: kad-data1
     source:
@@ -54,18 +45,7 @@ loaders:
     rules:
       document: '^data2-.*$'
 
-  - name: context
-    source:
-      gitRepository:
-        # name: kad-infra-sa
-        name: flux-system
-        namespace: flux-system
-        unmanaged: true
-    kadFiles:
-      - clusters/context.yaml
-      - clusters/kind/context.yaml
-      - clusters/kind/mbp64/context.yaml
-      - clusters/kind/mbp64/kubo4/context.yaml
+
 
 templateReleases:
 
@@ -104,7 +84,7 @@ templateReleases:
         ingressName: minio2
         ldap: openldap
         dependsOn:
-          - openldap
+          - ldapLocalServer
       parameterFiles:
         - document: data2-minio-parameters
           unwrap: minio
@@ -121,8 +101,7 @@ componentReleases:
       parameters:
         debug: true
     namespace: flux-system
-    dependsOn:
-      - ingress-nginx
+
 
   - name: cnpg
     namespace: cnpg
@@ -143,6 +122,4 @@ componentReleases:
         configUser: "admin"
         configPassword: admin123
     namespace: openldap
-    dependsOn:
-      - ingress-nginx
 
