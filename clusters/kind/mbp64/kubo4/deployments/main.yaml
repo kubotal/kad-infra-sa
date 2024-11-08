@@ -121,5 +121,8 @@ componentReleases:
         adminPassword: admin123
         configUser: "admin"
         configPassword: admin123
+        replicaCount: 2
+      parameterFiles:
+        - file: _ldap-users-init_.yaml
     namespace: openldap
 
