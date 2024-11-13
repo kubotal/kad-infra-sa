@@ -49,9 +49,14 @@ loaders:
 
 templateReleases:
 
-  - name: system-base
+  - name: cert-manager
     template:
-      name: system-base
+      name: cert:cert-manager
+      version: 1.0.0
+
+  - name: ingress
+    template:
+      name: ingress
       version: 1.0.0
 
   - name: tools
