@@ -13,6 +13,7 @@ gitRepositories:
   - name: kad-data1
     interval: 30s
     url: https://github.com/SergeAlexandre/kad-data1.git
+
   - name: kad-data2
     interval: 30s
     url: https://github.com/SergeAlexandre/kad-data2.git
@@ -110,9 +111,21 @@ componentReleases:
 
   - name: cnpg
     namespace: cnpg
+    enabled: true
     component:
       name: cnpg
       version: 1.0.0
+      protected: false
+
+
+  - name: kubmio
+    namespace: kubmio
+    enabled: true
+    component:
+      name: kubmio
+      version: 1.0.0
+      parameters:
+        devMode: true
 
 
   - name: openldap
