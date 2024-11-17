@@ -5,3 +5,7 @@ context:
   storageClass:
     data: standard
     workspace: standard
+
+  # This list is provided as a map of bool, to allow merging
+  clusterRoles:
+    blockStorage: true

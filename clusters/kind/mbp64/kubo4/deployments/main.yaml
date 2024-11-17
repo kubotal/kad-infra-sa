@@ -5,9 +5,18 @@ gitRepositories:
   - name: kad-components
     watched: true
     interval: 30s
+    protected: true
     ref:
-      tag: v0.1.0
+      branch: main
     url: https://github.com/kubotal/kad-components.git
+
+  - name: kad-data1
+    interval: 30s
+    url: https://github.com/SergeAlexandre/kad-data1.git
+
+  - name: kad-data2
+    interval: 30s
+    url: https://github.com/SergeAlexandre/kad-data2.git
 
 #   Replaced by flux-system/flux-system
 #  - name: kad-infra-sa
@@ -18,52 +27,61 @@ gitRepositories:
 
 
 loaders:
-  - name: kad-components
+
+  - name: kad-data1
     source:
       gitRepository:
-        name: kad-components
+        name: kad-data1
     kadFiles:
-      - components
-      - compositions
+      - data
+    rules:
+      document: '^data1-.*$'
 
-  - name: context
+  - name: kad-data2
     source:
       gitRepository:
-        # name: kad-infra-sa
-        name: flux-system
-        namespace: flux-system
-        unmanaged: true
+        name: kad-data2
     kadFiles:
-      - clusters/context.yaml
-      - clusters/kind/context.yaml
-      - clusters/kind/mbp64/context.yaml
-      - clusters/kind/mbp64/kubo4/context.yaml
+      - data
+    rules:
+      document: '^data2-.*$'
 
-deployments:
 
-  - name: system-base
-    composition:
-      name: system-base
+
+templateReleases:
+
+  - name: cert-manager
+    template:
+      name: cert:cert-manager
+      version: 1.0.0
+
+  - name: ingress
+    template:
+      name: ingress
       version: 1.0.0
 
   - name: tools
-    composition:
+    template:
       name: tools
       version: 1.0.0
       parameters:
         reloader: true
 
   - name: minio1
-    composition:
+    template:
       name: minio-1
       version: 1.0.0
       parameters:
         namespace: minio1
         capacityGb: 10
         ingressName: minio1
+      parameterFiles:
+        - document: data1-minio-parameters
+          unwrap: minio
+          wrap: admin
 
   - name: minio2
-    composition:
+    template:
       name: minio-1
       version: 1.0.0
       parameters:
@@ -72,16 +90,42 @@ deployments:
         ingressName: minio2
         ldap: openldap
         dependsOn:
-          - openldap
+          - ldapLocalServer
+      parameterFiles:
+        - document: data2-minio-parameters
+          unwrap: minio
+          wrap: admin
 
 
-releases:
+componentReleases:
+
+  - name: kad-webserver
+    enabled: true
+    component:
+      name: kad-webserver
+      version: 1.0.0
+      parameters:
+        debug: true
+    namespace: flux-system
+
 
   - name: cnpg
     namespace: cnpg
+    enabled: true
     component:
       name: cnpg
       version: 1.0.0
+      protected: false
+
+
+  - name: kubmio
+    namespace: kubmio
+    enabled: true
+    component:
+      name: kubmio
+      version: 1.0.0
+      parameters:
+        devMode: true
 
 
   - name: openldap
@@ -95,7 +139,8 @@ releases:
         adminPassword: admin123
         configUser: "admin"
         configPassword: admin123
+        replicaCount: 2
+      parameterFiles:
+        - file: _ldap-users-init_.yaml
     namespace: openldap
-    dependsOn:
-      - ingress-nginx
 

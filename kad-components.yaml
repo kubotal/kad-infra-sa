@@ -1,0 +1,16 @@
+
+
+gitRepositories:
+
+
+loaders:
+  - name: kad-components
+    source:
+      gitRepository:
+        name: kad-components
+    kadFiles:
+      - components
+      - templates
+    rules:
+      component: '^.*$'
+      template: '^.*$'
