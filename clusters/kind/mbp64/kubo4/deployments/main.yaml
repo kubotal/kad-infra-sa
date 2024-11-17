@@ -7,7 +7,7 @@ gitRepositories:
     interval: 30s
     protected: true
     ref:
-      branch: sa-work1
+      branch: main
     url: https://github.com/kubotal/kad-components.git
 
   - name: kad-data1
