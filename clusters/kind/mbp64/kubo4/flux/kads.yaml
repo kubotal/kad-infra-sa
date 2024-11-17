@@ -45,7 +45,7 @@ spec:
       sweepPeriod: 2m # TODO: Set to 1h after setup
       cleaner:
         enabled: true
-        enforced: false
+        enforced: true
       primarySources:
         - location: /kad-controller
           kadFiles:
