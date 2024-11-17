@@ -42,6 +42,10 @@ spec:
     namespace: flux-system
   values:
     config:
+      sweepPeriod: 2m # TODO: Set to 1h after setup
+      cleaner:
+        enabled: true
+        enforced: false
       primarySources:
         - location: /kad-controller
           kadFiles:
@@ -55,7 +59,6 @@ spec:
             - clusters/kind/mbp64/context.yaml
             - clusters/kind/mbp64/kubo4/context.yaml
             - kad-components.yaml
-      sweepPeriod: 2m # TODO: Set to 1h after setup
     logger:
       mode: dev
       level: info
