@@ -59,18 +59,18 @@ templateReleases:
       parameters:
         reloader: true
 
-#  - name: minio1
-#    template:
-#      name: minio-1
-#      version: 1.0.0
-#      parameters:
-#        namespace: minio1
-#        capacityGb: 10
-#        ingressName: minio1
-#      parameterFiles:
-#        - document: data1-minio-parameters
-#          unwrap: minio
-#          wrap: admin
+  - name: minio1
+    template:
+      name: minio-1
+      version: 1.0.0
+      parameters:
+        namespace: minio1
+        capacityGb: 10
+        ingressName: minio1
+      parameterFiles:
+        - document: data1-minio-parameters
+          unwrap: minio
+          wrap: admin
 
   - name: minio2
     template:
