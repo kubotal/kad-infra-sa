@@ -2,14 +2,6 @@
 
 gitRepositories:
 
-  - name: kad-components
-    watched: true
-    interval: 30s
-    protected: true
-    ref:
-      branch: sa-work1
-    url: https://github.com/kubotal/kad-components.git
-
 
 loaders:
   - name: kad-components

@@ -1,0 +1,11 @@
+
+componentReleases:
+  - name: kubmio
+    namespace: kubmio
+    enabled: true
+    component:
+      name: kubmio
+      version: 1.0.0
+      parameters:
+        devMode: true
+

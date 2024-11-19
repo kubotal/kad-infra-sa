@@ -53,6 +53,7 @@ spec:
         - name: flux-system
           namespace: flux-system
           kadFiles:
+            - clusters/kind/mbp64/kubo4/system
             - clusters/kind/mbp64/kubo4/deployments
             - clusters/context.yaml
             - clusters/kind/context.yaml
