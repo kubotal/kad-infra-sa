@@ -56,14 +56,28 @@ templateReleases:
       name: cert:cert-manager
       version: 1.0.0
 
-  - name: ingress
+  - name: metallb
     template:
-      name: ingress
+      name: metallb
       version: 1.0.0
 
 
 
 componentReleases:
+
+  - name: ingress-nginx
+    enabled: true
+    component:
+      name: ingress-nginx
+      version: 1.0.0
+    namespace: ingress-nginx
+
+  - name: ingress-kubernetes
+    enabled: true
+    component:
+      name: ingress-kubernetes
+      version: 1.0.0
+    namespace: ingress-nginx
 
   - name: kad-webserver
     enabled: true
