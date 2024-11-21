@@ -69,6 +69,15 @@ flux bootstrap github \
 --owner kubotal \
 --path=clusters/kind/mbp64/kubo4/flux
 
+flux bootstrap github \
+--owner=${GITHUB_USER} \
+--repository=${GITHUB_REPO} \
+--branch=${GIT_BRANCH} \
+--interval 15s \
+--owner kubotal \
+--token-auth \
+--path=clusters/kind/mbp64/kubo4/flux
+
 ```
 
 
