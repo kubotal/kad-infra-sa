@@ -1,0 +1,14 @@
+templateReleases:
+
+  - name: minio3
+    template:
+      name: minio-4
+      version: 1.0.0
+      enabled: false
+      parameters:
+        namespace: minio3
+        capacityGb: 10
+        ingressName: minio3
+        admin:
+          rootUser: minio
+          rootPassword: minio123
