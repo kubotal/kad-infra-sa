@@ -4,7 +4,6 @@ templateReleases:
     template:
       name: minio-1
       version: 1.0.1
-      enabled: false
       parameters:
         namespace: minio3
         capacityGb: 10
