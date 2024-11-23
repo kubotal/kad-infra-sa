@@ -3,7 +3,7 @@ templateReleases:
   - name: minio3
     template:
       name: minio-1
-      version: 1.0.1
+      version: 1.0.0
       parameters:
         namespace: minio3
         capacityGb: 10
