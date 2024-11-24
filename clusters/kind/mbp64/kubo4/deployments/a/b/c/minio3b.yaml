@@ -2,7 +2,7 @@ templateReleases:
 
   - name: minio3
     template:
-      name: minio-1
+      name: minio-4
       version: 1.0.0
       parameters:
         namespace: minio3
