@@ -4,8 +4,7 @@ templateReleases:
     template:
       name: minio-4
       version: 1.0.0
-      parameters:
-        xxx: yy
+      parametersx:
         namespace: minio3
         capacityGb: 10
         ingressName: minio3
