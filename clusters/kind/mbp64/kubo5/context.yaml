@@ -1,0 +1,13 @@
+# Context specific to a kind cluster named 'kubo5'
+
+context:
+
+  cluster:
+    name: kubo5
+    domain: kubo5.mbp
+
+  ingress:
+    url: ingress.kubo5.mbp
+    kubernetes:
+      enabled: true
+

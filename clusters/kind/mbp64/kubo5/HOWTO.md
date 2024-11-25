@@ -1,4 +1,4 @@
-# KUBO4
+# KUBO5
 
 ## Versions:
 
@@ -19,16 +19,16 @@ docker network inspect kind
 ```
 
 
-## kubo4 cluster
+## kubo5 cluster
 
 
 ```
-cat >$(brew --prefix)/etc/dnsmasq.d/kubo4 <<EOF
-address=/first.pool.kubo4.mbp/172.18.130.1 
-address=/.ingress.kubo4.mbp/172.18.130.1 
-address=/padl.kubo4.mbp/172.18.130.2 
-address=/ldap.kubo4.mbp/172.18.130.3 
-address=/last.pool.kubo4.mbp/172.18.130.4 
+cat >$(brew --prefix)/etc/dnsmasq.d/kubo5 <<EOF
+address=/first.pool.kubo5.mbp/172.18.140.1 
+address=/.ingress.kubo5.mbp/172.18.140.1 
+address=/padl.kubo5.mbp/172.18.140.2 
+address=/ldap.kubo5.mbp/172.18.140.3 
+address=/last.pool.kubo5.mbp/172.18.140.4 
 EOF
 
 
@@ -36,22 +36,22 @@ sudo brew services restart dnsmasq
 
 sudo killall -HUP mDNSResponder
 
-ping ldap.kubo4.mbp
-ping padl.kubo4.mbp
+ping ldap.kubo5.mbp
+ping padl.kubo5.mbp
 ```
 
 
 ```
-cat >/tmp/kubo4-config.yaml <<EOF
+cat >/tmp/kubo5-config.yaml <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
-name: kubo4
+name: kubo5
 networking:
   apiServerAddress: "127.0.0.1"
-  apiServerPort: 5445
+  apiServerPort: 5446
 EOF
 
-kind create cluster --config /tmp/kubo4-config.yaml
+kind create cluster --config /tmp/kubo5-config.yaml
 
 ```
 
@@ -68,7 +68,7 @@ flux bootstrap github \
 --interval 15s \
 --owner kubotal \
 --read-write-key \
---path=clusters/kind/mbp64/kubo4/flux
+--path=clusters/kind/mbp64/kubo5/flux
 
 flux bootstrap github \
 --owner=${GITHUB_USER} \
@@ -77,7 +77,7 @@ flux bootstrap github \
 --interval 15s \
 --owner kubotal \
 --token-auth \
---path=clusters/kind/mbp64/kubo4/flux
+--path=clusters/kind/mbp64/kubo5/flux
 
 ```
 

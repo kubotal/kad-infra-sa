@@ -11,25 +11,3 @@ context:
     kubernetes:
       enabled: true
 
-
-  minio:
-    ldapSettings:
-      openldap:
-        environment:
-          MINIO_IDENTITY_LDAP_SERVER_ADDR: "openldap.openldap.svc:636"
-          MINIO_IDENTITY_LDAP_LOOKUP_BIND_DN: "cn=admin,dc=odp,dc=com"
-          MINIO_IDENTITY_LDAP_LOOKUP_BIND_PASSWORD: "admin123"
-          MINIO_IDENTITY_LDAP_USER_DN_SEARCH_BASE_DN: "ou=Users,dc=odp,dc=com"
-          MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER: "(uid=%s)"
-          MINIO_IDENTITY_LDAP_GROUP_SEARCH_BASE_DN: "ou=Groups,dc=odp,dc=com"
-          MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER: "(&(objectclass=posixGroup)(memberUid=%s))"
-          MINIO_IDENTITY_LDAP_TLS_SKIP_VERIFY: "on"
-          MINIO_IDENTITY_LDAP_SERVER_INSECURE: "off"
-          MINIO_IDENTITY_LDAP_SERVER_STARTTLS: "off"
-          MINIO_IDENTITY_LDAP_SRV_RECORD_NAME: ""
-          MINIO_IDENTITY_LDAP_COMMENT: "in-cluster openldap server"
-
-
-
-  openldap:
-    replicaCount: 2
