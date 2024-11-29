@@ -1,0 +1,17 @@
+
+templateReleases:
+
+  - name: minio3
+    template:
+      name: minio
+      version: 2.0.0
+      parameterFiles:
+        - document: project-p1
+          unwrap: minio
+        - document: minio-flavor-small
+        - yaml:
+            storage:
+              driveSize: 8GB
+
+
+

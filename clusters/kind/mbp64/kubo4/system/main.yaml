@@ -89,7 +89,7 @@ componentReleases:
       parameters:
         debug: true
         deploymentLocation: clusters/kind/mbp64/kubo4/deployments
-        replicaCount: 2
+        replicaCount: 1
     namespace: flux-system
 
 

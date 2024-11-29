@@ -1,0 +1,40 @@
+
+documents:
+  # ----------------------------------
+  - name: minio-flavor-small
+    yaml:
+      storage:
+        driveSize: 10GB
+        replicas: 1
+        drivesPerNode: 1
+        pools: 1
+
+  - name: minio-flavor-small-drp
+    yaml:
+      storage:
+        driveSize: 5GB
+        replicas: 4
+        drivesPerNode: 1
+        pools: 1
+
+  - name: minio-flavor-medium_drp
+    yaml:
+      storage:
+        driveSize: 15GB
+        replicas: 4
+        drivesPerNode: 1
+        pools: 1
+
+  # ----------------------------------
+  - name: project-p1
+    yaml:
+      minio:
+        rootUser: admin
+        rootPassword: admin123
+
+  - name: project-p2
+    yaml:
+      minio:
+        rootUser: admin
+        rootPassword: admin321
+
