@@ -14,3 +14,4 @@ loaders:
     rules:
       component: '^.*$'
       template: '^.*$'
+      document: '^.*$'
