@@ -1,0 +1,30 @@
+
+documents:
+
+  - name: project-p2-config
+    yaml:
+      global:
+        namespace: project-p2
+      minio:
+        rootUser: minio
+        rootPassword: minio123
+        ldap: openldap
+
+templateReleases:
+
+  - name: p2-minio
+    template:
+      name: minio
+      version: 2.0.0
+      parameterFiles:
+        - document: project-p2-config
+          unwrap: global
+        - document: project-p2-config
+          unwrap: minio
+        - document: minio-flavor-small
+        - yaml:
+            storage:
+              driveSize: 8G
+
+
+
