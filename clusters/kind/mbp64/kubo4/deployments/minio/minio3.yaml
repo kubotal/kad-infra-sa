@@ -1,0 +1,16 @@
+#
+#
+#componentReleases:
+#
+#  - name: minio3
+#    component:
+#      name: minio
+#      version: 1.0.0
+#      protected: false
+#      parameters:
+#        rootUser: minio
+#        rootPassword: minio123
+#        ingressName: minio3
+#      parameterFiles:
+#        - document: minio-flavor-small
+#    namespace: minio3

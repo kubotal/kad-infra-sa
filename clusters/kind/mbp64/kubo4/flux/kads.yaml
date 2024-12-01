@@ -41,6 +41,7 @@ spec:
     name: kad-controller
     namespace: flux-system
   values:
+    replicaCount: 1
     config:
       sweepPeriod: 2m # TODO: Set to 1h after setup
       cleaner:

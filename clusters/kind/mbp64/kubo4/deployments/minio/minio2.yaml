@@ -1,18 +1,19 @@
 
-templateReleases:
+
+componentReleases:
 
   - name: minio2
-    template:
-      name: minio-1
+    component:
+      name: minio
       version: 1.0.0
+      protected: true
       parameters:
-        namespace: minio2
-        capacityGb: 10
         ingressName: minio2
         ldap: openldap
-        dependsOn:
-          - ldapLocalServer
       parameterFiles:
+        - document: minio-flavor-small
         - document: data2-minio-parameters
           unwrap: minio
-          wrap: admin
+    namespace: minio2
+    dependsOn:
+      - ldapLocalServer

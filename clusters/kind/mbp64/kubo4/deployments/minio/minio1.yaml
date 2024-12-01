@@ -1,15 +1,15 @@
 
-templateReleases:
+componentReleases:
 
   - name: minio1
-    template:
-      name: minio-1
+    component:
+      name: minio
       version: 1.0.0
+      protected: true
       parameters:
-        namespace: minio1
-        capacityGb: 10
         ingressName: minio1
       parameterFiles:
+        - document: minio-flavor-small
         - document: data1-minio-parameters
           unwrap: minio
-          wrap: admin
+    namespace: minio1
