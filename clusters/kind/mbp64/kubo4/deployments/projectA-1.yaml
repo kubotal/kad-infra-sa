@@ -9,6 +9,7 @@ templateReleases:
       parameters:
         namespace: pa-1
         ingressId: pa1
+        protected: false
         minio:
           flavor: small
           rootUser: minio
