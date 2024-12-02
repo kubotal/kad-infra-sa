@@ -1,0 +1,18 @@
+
+
+
+
+componentReleases:
+  - name: kad-webserver
+    enabled: true
+    component:
+      name: kad-webserver
+      version: 1.0.0
+      source:
+        version: 0.5.0-snapshot
+      parameters:
+        debug: true
+        deploymentLocation: clusters/kind/mbp64/kubo4/deployments
+        replicaCount: 1
+    namespace: flux-system
+

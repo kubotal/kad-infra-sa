@@ -60,6 +60,7 @@ spec:
             - clusters/kind/context.yaml
             - clusters/kind/mbp64/context.yaml
             - clusters/kind/mbp64/kubo4/context.yaml
+            - projects
             - kad-components.yaml
     logger:
       mode: dev

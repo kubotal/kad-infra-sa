@@ -1,0 +1,59 @@
+
+
+templates:
+  - name: projectA
+    version: 1.0.0
+    parameters:
+      namespace:
+      ingressId:
+      minio:
+        flavor:
+        rootUser:
+        rootPassword:
+    parametersSchema:
+      document: schema-parameters-projectA
+    body: |
+      componentReleases:
+        - name: {{ .Meta.templateRelease.name }}
+          component:
+            name: minio
+            version: 1.0.0
+            parameters:
+              ingressName: {{ .Parameters.ingressId }}-minio
+              rootUser: {{ .Parameters.minio.rootUser }}
+              rootPassword: {{ .Parameters.minio.rootPassword }}
+            parameterFiles:
+              - document: minio-flavor-{{ .Parameters.minio.flavor }}
+          namespace: {{ .Parameters.namespace }}
+
+
+documents:
+  - name: schema-parameters-projectA
+    yaml:
+      $schema: "http://json-schema.org/schema#"
+      type: object
+      additionalProperties: false
+      required:
+        - ingressId
+        - namespace
+        - minio
+      properties:
+        ingressId:
+          type: string
+        namespace:
+          type: string
+        minio:
+          type: object
+          additionalProperties: false
+          required:
+            - rootUser
+            - rootPassword
+            - flavor
+          properties:
+            rootUser:
+              type: string
+            rootPassword:
+              type: string
+            flavor:
+              type: string
+

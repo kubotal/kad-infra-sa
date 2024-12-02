@@ -1,9 +1,8 @@
 
-
-gitRepositories:
-
+# At this place as we want to exclude this in case of local deployment
 
 loaders:
+
   - name: kad-components
     source:
       gitRepository:

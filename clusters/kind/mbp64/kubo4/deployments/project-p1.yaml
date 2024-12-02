@@ -4,6 +4,7 @@ documents:
   - name: project-p1-config
     yaml:
       namespace: project-p1
+      # otherParam: otherValue   # PB
 
 
 templateReleases:
