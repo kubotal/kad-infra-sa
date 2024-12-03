@@ -16,6 +16,7 @@ templateReleases:
       parameters:
         rootUser: minio
         rootPassword: minio123
+        createNamespace: true
       parameterFiles:
         - document: project-p1-config
         - document: minio-flavor-small

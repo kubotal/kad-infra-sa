@@ -6,6 +6,9 @@ componentReleases:
       name: minio
       version: 1.0.0
       protected: true
+      config:
+        install:
+          createNamespace: true
       parameters:
         ingressName: minio1
       parameterFiles:

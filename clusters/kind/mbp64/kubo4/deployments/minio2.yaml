@@ -7,6 +7,9 @@ componentReleases:
       name: minio
       version: 1.0.0
       protected: true
+      config:
+        install:
+          createNamespace: true
       parameters:
         ingressName: minio2
         ldap: openldap

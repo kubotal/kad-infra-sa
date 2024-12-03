@@ -2,15 +2,15 @@
 
 
 templateReleases:
-  - name: pa-1
+  - name: pa-2
     template:
       name: projectA
       version: 1.0.0
       parameters:
-        namespace: pa-1
-        projectId: pa1
+        namespace: pa-2
+        projectId: pa2
         protected: false
         minio:
-          flavor: small
+          flavor: small-drp
           rootUser: minio
           rootPassword: minio123

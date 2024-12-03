@@ -1,0 +1,14 @@
+
+componentReleases:
+  - name: podinfo1
+    component:
+      name: podinfo
+      version: 1.0.0
+      protected: false
+      config:
+        install:
+          createNamespace: true
+      parameters:
+        ingressName: podinfo1
+    namespace: podinfo1
+

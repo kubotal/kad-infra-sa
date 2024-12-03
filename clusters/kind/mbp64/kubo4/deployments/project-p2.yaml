@@ -5,6 +5,7 @@ documents:
     yaml:
       global:
         namespace: project-p2
+        createNamespace: true
       minio:
         rootUser: minio
         rootPassword: minio123

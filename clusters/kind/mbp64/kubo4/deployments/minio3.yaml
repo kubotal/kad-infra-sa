@@ -7,6 +7,9 @@
 #      name: minio
 #      version: 1.0.0
 #      protected: false
+#      config:
+#        install:
+#          createNamespace: true
 #      parameters:
 #        rootUser: minio
 #        rootPassword: minio123

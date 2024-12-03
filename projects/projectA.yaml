@@ -5,7 +5,7 @@ templates:
     version: 1.0.0
     parameters:
       namespace:
-      ingressId:
+      projectId:
       protected: true
       minio:
         flavor:
@@ -15,19 +15,51 @@ templates:
       document: schema-parameters-projectA
     body: |
       componentReleases:
-        - name: {{ .Meta.templateRelease.name }}
+
+        - name: {{ .Meta.templateRelease.name }}-ns
+          component:
+            name: projectA-namespace
+            version: 1.0.0
+            protected: {{ .Parameters.protected }}
+            parameters:
+              namespace: {{ .Parameters.namespace }}
+              projectId: {{ .Parameters.projectId }}
+          namespace: default
+          roles:
+            - {{ .Meta.templateRelease.name }}-ns
+
+        - name: {{ .Meta.templateRelease.name }}-minio
           component:
             name: minio
             version: 1.0.0
             protected: {{ .Parameters.protected }}
+            config:
+              install:
+                createNamespace: true
             parameters:
-              ingressName: {{ .Parameters.ingressId }}-minio
+              ingressName: {{ .Parameters.projectId }}-minio
               rootUser: {{ .Parameters.minio.rootUser }}
               rootPassword: {{ .Parameters.minio.rootPassword }}
             parameterFiles:
               - document: minio-flavor-{{ .Parameters.minio.flavor }}
           namespace: {{ .Parameters.namespace }}
+          dependsOn:
+            - {{ .Meta.templateRelease.name }}-ns
 
+        - name: {{ .Meta.templateRelease.name }}-podinfo
+          component:
+            name: podinfo
+            version: 1.0.0
+            protected: {{ .Parameters.protected }}
+            config:
+              install:
+                createNamespace: true
+            parameters:
+              ingressName: {{ .Parameters.projectId }}-podinfo
+          namespace: {{ .Parameters.namespace }}
+          dependsOn:
+            - {{ .Meta.templateRelease.name }}-ns
+      
 
 documents:
   - name: schema-parameters-projectA
@@ -36,11 +68,11 @@ documents:
       type: object
       additionalProperties: false
       required:
-        - ingressId
+        - projectId
         - namespace
         - minio
       properties:
-        ingressId:
+        projectId:
           type: string
         namespace:
           type: string
@@ -61,4 +93,52 @@ documents:
               type: string
             flavor:
               type: string
+
+  - name: schema-parameters-projectA-namespace
+    yaml:
+      $schema: "http://json-schema.org/schema#"
+      type: object
+      additionalProperties: false
+      required:
+        - projectId
+        - namespace
+      properties:
+        projectId:
+          type: string
+        namespace:
+          type: string
+
+
+components:
+  - name: projectA-namespace
+    version: 1.0.0
+    config:
+      install:
+        createNamespace: false
+    source:
+      defaultVersion: 1.0.0
+      gitRepository:
+        name: kad-components
+        path: ./charts/wrapper/{version}/
+    parameters:
+      namespace: # TBD
+      projectId: # TBD
+    values: |
+      body: |
+        ---
+        kind: Namespace
+        apiVersion: v1
+        metadata:
+          name: {{ .Parameters.namespace }}
+          labels:
+            my.company.com/project-name: projectA
+            my.company.com/project-id: {{ .Parameters.projectId }} 
+        ---
+        kind: ServiceAccount
+        apiVersion: v1
+        metadata:
+          name: my-service
+          namespace: {{ .Parameters.namespace }}
+
+
 
