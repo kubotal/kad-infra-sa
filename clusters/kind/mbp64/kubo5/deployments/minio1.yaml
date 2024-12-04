@@ -1,8 +1,7 @@
 
-
 componentReleases:
 
-  - name: minio3
+  - name: minio1
     component:
       name: minio
       version: 1.0.0
@@ -11,12 +10,9 @@ componentReleases:
         install:
           createNamespace: true
       parameters:
-        ingressName: minio3
-        ldap: openldap
+        ingressName: minio1
       parameterFiles:
-        - document: minio-flavor-small-drp
+        - document: minio-flavor-small
         - document: data1-minio-parameters
           unwrap: minio
-    namespace: minio3
-    dependsOn:
-      - ldapLocalServer
+    namespace: minio1
