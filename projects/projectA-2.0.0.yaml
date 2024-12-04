@@ -2,7 +2,7 @@
 
 templates:
   - name: projectA
-    version: 1.0.0
+    version: 2.0.0
     parameters:
       namespace:
       projectId:
@@ -12,14 +12,14 @@ templates:
         rootUser:
         rootPassword:
     parametersSchema:
-      document: schema-parameters-projectA
+      document: schema-parameters-projectA-2-0-0
     body: |
       componentReleases:
 
         - name: {{ .Meta.templateRelease.name }}-ns
           component:
             name: projectA-namespace
-            version: 1.0.0
+            version: 2.0.0
             protected: {{ .Parameters.protected }}
             parameters:
               namespace: {{ .Parameters.namespace }}
@@ -31,15 +31,28 @@ templates:
         - name: {{ .Meta.templateRelease.name }}-minio
           component:
             name: minio
-            version: 1.0.0
+            version: 2.0.0
             protected: {{ .Parameters.protected }}
             config:
               install:
                 createNamespace: true
             parameters:
-              ingressName: {{ .Parameters.projectId }}-minio
               rootUser: {{ .Parameters.minio.rootUser }}
               rootPassword: {{ .Parameters.minio.rootPassword }}
+              clusterIssuer: {{ .Context.certificateIssuer.internal }}
+              storageClass: {{ .Context.storageClass.data }}
+              ingresses:
+                passthrough:
+                  enabled: true
+                  url: {{ .Parameters.projectId }}-minio.{{ .Context.ingress.url }}
+                alternate:
+                  enabled: {{ ne .Context.certificateIssuer.public .Context.certificateIssuer.internal }} 
+                  url: {{ .Parameters.projectId }}-minio-alt.{{ .Context.ingress.url }}
+                  clusterIssuer: {{ .Context.certificateIssuer.public }}
+                console:
+                  enabled: true
+                  url: {{ .Parameters.projectId }}-minio-console.{{ .Context.ingress.url }}
+                  clusterIssuer: {{ .Context.certificateIssuer.public }}
             parameterFiles:
               - document: minio-flavor-{{ .Parameters.minio.flavor }}
           namespace: {{ .Parameters.namespace }}
@@ -49,20 +62,22 @@ templates:
         - name: {{ .Meta.templateRelease.name }}-podinfo
           component:
             name: podinfo
-            version: 1.0.0
+            version: 2.0.0
             protected: {{ .Parameters.protected }}
             config:
               install:
                 createNamespace: true
             parameters:
-              ingressName: {{ .Parameters.projectId }}-podinfo
+              ingress:
+                url: {{ .Parameters.projectId }}-podinfo.{{ .Context.ingress.url }}
+                certificateIssuer: {{ .Context.certificateIssuer.public }}
           namespace: {{ .Parameters.namespace }}
           dependsOn:
             - {{ .Meta.templateRelease.name }}-ns
-      
+
 
 documents:
-  - name: schema-parameters-projectA
+  - name: schema-parameters-projectA-2-0-0
     yaml:
       $schema: "http://json-schema.org/schema#"
       type: object
@@ -94,7 +109,7 @@ documents:
             flavor:
               type: string
 
-  - name: schema-parameters-projectA-namespace
+  - name: schema-parameters-projectA-namespace-2-0-0
     yaml:
       $schema: "http://json-schema.org/schema#"
       type: object
@@ -111,7 +126,7 @@ documents:
 
 components:
   - name: projectA-namespace
-    version: 1.0.0
+    version: 2.0.0
     config:
       install:
         createNamespace: false
@@ -120,6 +135,8 @@ components:
       gitRepository:
         name: kad-components
         path: ./charts/wrapper/{version}/
+    parametersSchema:
+      document: schema-parameters-projectA-namespace-2-0-0
     parameters:
       namespace: # TBD
       projectId: # TBD

@@ -1,19 +1,22 @@
-#
-#
-#componentReleases:
-#
-#  - name: minio3
-#    component:
-#      name: minio
-#      version: 1.0.0
-#      protected: false
-#      config:
-#        install:
-#          createNamespace: true
-#      parameters:
-#        rootUser: minio
-#        rootPassword: minio123
-#        ingressName: minio3
-#      parameterFiles:
-#        - document: minio-flavor-small
-#    namespace: minio3
+
+
+componentReleases:
+
+  - name: minio3
+    component:
+      name: minio
+      version: 1.0.0
+      protected: true
+      config:
+        install:
+          createNamespace: true
+      parameters:
+        ingressName: minio3
+        ldap: openldap
+      parameterFiles:
+        - document: minio-flavor-small
+        - document: data1-minio-parameters
+          unwrap: minio
+    namespace: minio3
+    dependsOn:
+      - ldapLocalServer
