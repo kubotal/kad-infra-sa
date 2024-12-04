@@ -1,7 +1,7 @@
 componentReleases:
 
   - name: openldap
-    enabled: true
+    enabled: false
     component:
       name: openldap
       version: 1.0.0
