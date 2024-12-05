@@ -8,7 +8,7 @@ templateReleases:
       version: 1.0.0
       parameters:
         namespace: pa-1
-        projectId: pa1
+        projectId: pa1bis
         protected: false
         minio:
           flavor: small
