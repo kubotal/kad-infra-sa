@@ -1,0 +1,161 @@
+
+
+templates:
+  - name: projectA
+    version: 2.0.0
+    parameters:
+      namespace:
+      projectId:
+      protected: true
+      minio:
+        flavor:
+        rootUser:
+        rootPassword:
+    parametersSchema:
+      document: schema-parameters-projectA-2-0-0
+    body: |
+      componentReleases:
+
+        - name: {{ .Meta.templateRelease.name }}-ns
+          component:
+            name: projectA-namespace
+            version: 2.0.0
+            protected: {{ .Parameters.protected }}
+            parameters:
+              namespace: {{ .Parameters.namespace }}
+              projectId: {{ .Parameters.projectId }}
+          namespace: default
+          roles:
+            - {{ .Meta.templateRelease.name }}-ns
+
+        - name: {{ .Meta.templateRelease.name }}-minio
+          component:
+            name: minio
+            version: 2.0.0
+            protected: {{ .Parameters.protected }}
+            config:
+              install:
+                createNamespace: true
+            parameters:
+              rootUser: {{ .Parameters.minio.rootUser }}
+              rootPassword: {{ .Parameters.minio.rootPassword }}
+              clusterIssuer: {{ .Context.certificateIssuer.internal }}
+              storageClass: {{ .Context.storageClass.data }}
+              ingresses:
+                passthrough:
+                  enabled: true
+                  url: {{ .Parameters.projectId }}-minio.{{ .Context.ingress.url }}
+                alternate:
+                  enabled: {{ ne .Context.certificateIssuer.public .Context.certificateIssuer.internal }} 
+                  url: {{ .Parameters.projectId }}-minio-alt.{{ .Context.ingress.url }}
+                  clusterIssuer: {{ .Context.certificateIssuer.public }}
+                console:
+                  enabled: true
+                  url: {{ .Parameters.projectId }}-minio-console.{{ .Context.ingress.url }}
+                  clusterIssuer: {{ .Context.certificateIssuer.public }}
+            parameterFiles:
+              - document: minio-flavor-{{ .Parameters.minio.flavor }}
+          namespace: {{ .Parameters.namespace }}
+          dependsOn:
+            - {{ .Meta.templateRelease.name }}-ns
+
+        - name: {{ .Meta.templateRelease.name }}-podinfo
+          component:
+            name: podinfo
+            version: 2.0.0
+            protected: {{ .Parameters.protected }}
+            config:
+              install:
+                createNamespace: true
+            parameters:
+              ingress:
+                url: {{ .Parameters.projectId }}-podinfo.{{ .Context.ingress.url }}
+                certificateIssuer: {{ .Context.certificateIssuer.public }}
+          namespace: {{ .Parameters.namespace }}
+          dependsOn:
+            - {{ .Meta.templateRelease.name }}-ns
+
+
+documents:
+  - name: schema-parameters-projectA-2-0-0
+    yaml:
+      $schema: "http://json-schema.org/schema#"
+      type: object
+      additionalProperties: false
+      required:
+        - projectId
+        - namespace
+        - minio
+      properties:
+        projectId:
+          type: string
+        namespace:
+          type: string
+        protected:
+          type: boolean
+          default: true
+        minio:
+          type: object
+          additionalProperties: false
+          required:
+            - rootUser
+            - rootPassword
+            - flavor
+          properties:
+            rootUser:
+              type: string
+            rootPassword:
+              type: string
+            flavor:
+              type: string
+
+  - name: schema-parameters-projectA-namespace-2-0-0
+    yaml:
+      $schema: "http://json-schema.org/schema#"
+      type: object
+      additionalProperties: false
+      required:
+        - projectId
+        - namespace
+      properties:
+        projectId:
+          type: string
+        namespace:
+          type: string
+
+
+components:
+  - name: projectA-namespace
+    version: 2.0.0
+    config:
+      install:
+        createNamespace: false
+    source:
+      defaultVersion: 1.0.0
+      gitRepository:
+        name: kad-components
+        path: ./charts/wrapper/{version}/
+    parametersSchema:
+      document: schema-parameters-projectA-namespace-2-0-0
+    parameters:
+      namespace: # TBD
+      projectId: # TBD
+    values: |
+      body: |
+        ---
+        kind: Namespace
+        apiVersion: v1
+        metadata:
+          name: {{ .Parameters.namespace }}
+          labels:
+            my.company.com/project-name: projectA
+            my.company.com/project-id: {{ .Parameters.projectId }} 
+        ---
+        kind: ServiceAccount
+        apiVersion: v1
+        metadata:
+          name: my-service
+          namespace: {{ .Parameters.namespace }}
+
+
+

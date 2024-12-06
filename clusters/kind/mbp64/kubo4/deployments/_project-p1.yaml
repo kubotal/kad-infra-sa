@@ -1,0 +1,23 @@
+
+documents:
+
+  - name: project-p1-config
+    yaml:
+      namespace: project-p1
+      # otherParam: otherValue   # PB
+
+
+templateReleases:
+
+  - name: p1-minio
+    template:
+      name: minio
+      version: 2.0.0
+      parameters:
+        rootUser: minio
+        rootPassword: minio123
+        createNamespace: true
+      parameterFiles:
+        - document: project-p1-config
+        - document: minio-flavor-small
+

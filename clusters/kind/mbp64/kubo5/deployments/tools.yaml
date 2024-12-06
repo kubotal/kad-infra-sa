@@ -1,0 +1,9 @@
+
+templateReleases:
+
+  - name: tools
+    template:
+      name: tools
+      version: 1.0.0
+      parameters:
+        reloader: true

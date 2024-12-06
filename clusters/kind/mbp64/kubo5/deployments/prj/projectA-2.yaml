@@ -1,0 +1,17 @@
+
+
+
+templateReleases:
+  - name: pa-2
+    template:
+      name: projectA
+      version: 1.0.0
+      parameters:
+        namespace: pa-2
+        projectId: pa2
+        protected: false
+        minio:
+          flavor: small-drp
+          rootUser: minio
+          rootPassword: minio123
+

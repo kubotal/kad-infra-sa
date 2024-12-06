@@ -1,0 +1,27 @@
+
+documents:
+  # ----------------------------------
+  - name: minio-flavor-small
+    yaml:
+      storage:
+        driveSize: 10G
+        replicas: 1
+        drivesPerNode: 1
+        pools: 1
+
+  - name: minio-flavor-small-drp
+    yaml:
+      storage:
+        driveSize: 5G
+        replicas: 4
+        drivesPerNode: 1
+        pools: 1
+
+  - name: minio-flavor-medium_drp
+    yaml:
+      storage:
+        driveSize: 15G
+        replicas: 4
+        drivesPerNode: 1
+        pools: 1
+

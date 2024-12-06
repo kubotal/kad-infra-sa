@@ -41,7 +41,7 @@ spec:
     name: kad-controller
     namespace: flux-system
   values:
-    replicaCount: 1
+    replicaCount: 2
     config:
       sweepPeriod: 2m # TODO: Set to 1h after setup
       cleaner:
@@ -54,12 +54,12 @@ spec:
         - name: flux-system
           namespace: flux-system
           kadFiles:
-            - clusters/kind/mbp64/kubo4/system
-            - clusters/kind/mbp64/kubo4/deployments
+            - clusters/kind/mbp64/kubo5/system
+            - clusters/kind/mbp64/kubo5/deployments
             - clusters/context.yaml
             - clusters/kind/context.yaml
             - clusters/kind/mbp64/context.yaml
-            - clusters/kind/mbp64/kubo4/context.yaml
+            - clusters/kind/mbp64/kubo5/context.yaml
             - projects
             - kad-components.yaml
     logger:

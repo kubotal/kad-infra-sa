@@ -1,0 +1,18 @@
+
+componentReleases:
+
+  - name: minio1
+    component:
+      name: minio
+      version: 1.0.0
+      protected: true
+      config:
+        install:
+          createNamespace: true
+      parameters:
+        ingressName: minio1
+      parameterFiles:
+        - document: minio-flavor-small
+        - document: data1-minio-parameters
+          unwrap: minio
+    namespace: minio1

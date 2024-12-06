@@ -1,0 +1,16 @@
+
+
+
+templateReleases:
+  - name: pa-1
+    template:
+      name: projectA
+      version: 1.0.0
+      parameters:
+        namespace: pa-1
+        projectId: pa1
+        protected: false
+        minio:
+          flavor: small
+          rootUser: minio
+          rootPassword: minio123

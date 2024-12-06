@@ -1,0 +1,16 @@
+
+templateReleases:
+
+  - name: minio2
+    template:
+      name: minio
+      version: 2.0.0
+      parameters:
+        createNamespace: true
+        namespace: minio2
+      parameterFiles:
+        - document: data2-minio-parameters
+          unwrap: minio
+        - document: minio-flavor-small
+
+
