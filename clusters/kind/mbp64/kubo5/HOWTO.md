@@ -58,7 +58,7 @@ kind create cluster --config /tmp/kubo5-config.yaml
 ```
 export GITHUB_USER=SergeAlexandre
 export GITHUB_REPO=kad-infra-sa
-export GIT_BRANCH=work2
+export GIT_BRANCH=main
 export GITHUB_TOKEN=
 
 flux bootstrap github \

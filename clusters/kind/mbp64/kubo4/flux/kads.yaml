@@ -12,7 +12,7 @@ spec:
     operation: copy
   url: oci://quay.io/kubotal/charts/kad-controller
   ref:
-    semver: "= 0.5.0-snapshot"
+    semver: "= 0.5.0"
 
 
 ---
