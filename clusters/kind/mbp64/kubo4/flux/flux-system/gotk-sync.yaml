@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 15s
   ref:
-    branch: work2
+    branch: v0.6.0
   secretRef:
     name: flux-system
   url: ssh://git@github.com/kubotal/kad-infra-sa
