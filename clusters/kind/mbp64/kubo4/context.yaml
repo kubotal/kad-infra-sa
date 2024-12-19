@@ -12,12 +12,12 @@ context:
       enabled: true
 
   _rewriters_:
+    - url:  https://github.com/SergeAlexandre/kad-data1.git
+      secretRef: kad-data1
 #    - url: https://stefanprodan.github.io/podinfo
 #      rewritten: https://myrepo.fr/kad/podinfo
 #      secretRef: kad-data1
 #      certSecretRef: xxxxx1
-#    - url:  https://github.com/SergeAlexandre/kad-data1.git
-#      secretRef: kad-data1
 #      proxySecretRef: xxxxx1
 #    - url: oci://quay.io/kubotal/charts/kubmio
 #      rewritten: oci://myquay.io/kubotal/charts/kubmio
