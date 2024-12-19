@@ -9,7 +9,7 @@ componentReleases:
       name: kad-webserver
       version: 1.0.0
       parameters:
-        ssl: false
+        ssl: true
         debug: true
         deploymentLocation: clusters/kind/mbp64/kubo4/deployments
         replicaCount: 1
