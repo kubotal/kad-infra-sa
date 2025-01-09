@@ -7,5 +7,5 @@ context:
     workspace: standard
 
   # This list is provided as a map of bool, to allow merging
-  clusterRoles:
+  _clusterRoles:
     blockStorage: true
