@@ -1,2 +1,0 @@
-
-Place here your applications

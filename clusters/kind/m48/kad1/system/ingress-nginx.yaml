@@ -1,9 +1,0 @@
-
-componentReleases:
-
-  - name: ingress-nginx
-    enabled: true
-    component:
-      name: ingress-nginx
-      version: 1.0.0
-    namespace: ingress-nginx

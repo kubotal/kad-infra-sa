@@ -1,7 +1,0 @@
-
-templateReleases:
-
-  - name: cert-manager
-    template:
-      name: cert:cert-manager
-      version: 1.0.0
