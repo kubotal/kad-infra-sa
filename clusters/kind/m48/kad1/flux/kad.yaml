@@ -1,0 +1,72 @@
+
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: kad-controller
+  namespace: flux-system
+spec:
+  interval: 1m
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
+  url: oci://quay.io/kubotal/charts/kad-controller
+  ref:
+    semver: "= 0.6.0-snapshot"
+
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: kad-controller
+  namespace: flux-system
+spec:
+  interval: 1m
+  serviceAccountName: kustomize-controller
+  targetNamespace: flux-system
+  storageNamespace: flux-system
+  releaseName: kad-controller
+  timeout: 5m
+  install:
+    remediation:
+      retries: 30
+      remediateLastFailure: true
+  upgrade:
+    remediation:
+      retries: 30
+      remediateLastFailure: true
+  chartRef:
+    kind: OCIRepository
+    name: kad-controller
+    namespace: flux-system
+  values:
+    replicaCount: 1
+    config:
+      sweepPeriod: 2m # TODO: Set to 1h after setup
+      cleaner:
+        enabled: true
+        enforced: true
+      primarySources:
+        - location: /kad-controller
+          kadFiles:
+            - tmpl
+        - name: flux-system
+          namespace: flux-system
+          kadFiles:
+            - clusters/kind/m48/kad1/system
+            - clusters/kind/m48/kad1/deployments
+            - clusters/context.yaml
+            - clusters/kind/context.yaml
+            - clusters/kind/m48/context.yaml
+            - clusters/kind/m48/kad1/context.yaml
+            - projects
+            - kad-components.yaml
+    logger:
+      mode: dev
+      level: info
+    image:
+      pullPolicy: Always
+    dryRun: false
+    noApply: false
+

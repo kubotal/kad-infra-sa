@@ -1,0 +1,50 @@
+
+gitRepositories:
+
+  # This is here, as cluster dependant (repo/branch can be different by cluster)
+  - name: kad-components
+    watched: true
+    interval: 30s
+    protected: true
+    ref:
+      branch: v0.6.0
+    url: https://github.com/kubotal/kad-components-sa.git
+
+  - name: kad-data1
+    interval: 30s
+    url: https://github.com/SergeAlexandre/kad-data1.git
+#    secretRef: kad-data1
+#    proxySecretRef: xxxxx3
+
+  - name: kad-data2
+    interval: 30s
+    url: https://github.com/SergeAlexandre/kad-data2.git
+
+#   Replaced by flux-system/flux-system
+#  - name: kad-infra-sa
+#    url: ssh://git@github.com/kubotal/kad-infra-sa
+#    ref:
+#      branch: work1
+#    secretRef: flux-system
+
+
+loaders:
+
+  - name: kad-data1
+    source:
+      gitRepository:
+        name: kad-data1
+    kadFiles:
+      - data
+    rules:
+      document: '^data1-.*$'
+
+  - name: kad-data2
+    source:
+      gitRepository:
+        name: kad-data2
+    kadFiles:
+      - data
+    rules:
+      document: '^data2-.*$'
+
