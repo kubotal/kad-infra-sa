@@ -145,6 +145,7 @@ docker run -d -p 5001:5000 --restart=always --name registry \
     -v /Users/sa/dev/certs:/certs \
      -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/host.docker.internal.crt \
      -e REGISTRY_HTTP_TLS_KEY=/certs/host.docker.internal.key \
+     -e REGISTRY_STORAGE_DELETE_ENABLED=true \
     registry:2
 ```
 
@@ -185,3 +186,49 @@ done.
 ```
 
 Then you can deploy fluxcd as described above
+
+
+Then in your `values.yaml`:
+
+```
+image:
+  pullPolicy: Always
+  repository: host.docker.internal:5001/kubocd
+
+```
+
+To check repo content:
+
+```
+curl https://localhost:5001/v2/_catalog
+
+curl https://localhost:5001/v2/kubocd/tags/list
+
+```
+
+# Registry UI tries
+
+https://github.com/Joxit/docker-registry-ui
+
+```
+docker run \
+  --name registry-ui \
+  -d \
+  -e SINGLE_REGISTRY=true \
+  -e REGISTRY_TITLE="Docker Registry UI" \
+  -e DELETE_IMAGES=true \
+  -e SHOW_CONTENT_DIGEST=true \
+  -e NGINX_PROXY_PASS_URL="https://host.docker.internal:5001" \
+  -e SHOW_CATALOG_NB_TAGS=true \
+  -e CATALOG_MIN_BRANCHES=1 \
+  -e CATALOG_MAX_BRANCHES=1 \
+  -e TAGLIST_PAGE_SIZE=100 \
+  -e REGISTRY_SECURED=false \
+  -e CATALOG_ELEMENTS_LIMIT=1000 \
+  -p 5003:80 \
+  joxit/docker-registry-ui:main
+
+
+```
+
+http://localhost:5003/
