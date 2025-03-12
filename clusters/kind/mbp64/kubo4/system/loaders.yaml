@@ -7,12 +7,14 @@ gitRepositories:
     interval: 30s
     protected: true
     ref:
-      branch: main
+      branch: v0.6.0
     url: https://github.com/kubotal/kad-components-sa.git
 
   - name: kad-data1
     interval: 30s
     url: https://github.com/SergeAlexandre/kad-data1.git
+#    secretRef: kad-data1
+#    proxySecretRef: xxxxx3
 
   - name: kad-data2
     interval: 30s

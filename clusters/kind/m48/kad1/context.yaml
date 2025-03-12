@@ -1,0 +1,13 @@
+# Context specific to a kind cluster named 'kad1'
+
+context:
+
+  cluster:
+    name: kad1
+    domain: kad1.mbp
+
+  ingress:
+    url: ingress.kad1.mbp
+    kubernetes:
+      enabled: true
+

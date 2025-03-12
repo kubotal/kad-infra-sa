@@ -1,0 +1,11 @@
+
+gitRepositories:
+
+  # This is here, as cluster dependant (repo/branch can be different by cluster)
+  - name: kad-components
+    watched: true
+    interval: 30s
+    protected: true
+    ref:
+      branch: v0.6.0
+    url: https://github.com/kubotal/kad-components-sa.git

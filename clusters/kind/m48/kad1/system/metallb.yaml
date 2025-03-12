@@ -1,0 +1,7 @@
+templateReleases:
+
+  - name: metallb
+    template:
+      name: metallb
+      version: 1.0.0
+

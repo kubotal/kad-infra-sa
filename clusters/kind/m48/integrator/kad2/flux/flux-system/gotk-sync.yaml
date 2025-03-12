@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/kind/mbp64/kubo4/flux
+  path: ./clusters/kind/m48/integrator/kad2/flux
   prune: true
   sourceRef:
     kind: GitRepository

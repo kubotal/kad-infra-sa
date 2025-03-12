@@ -1,7 +1,7 @@
 
 
 
-templateReleases:
+templateReleasesxx:
   - name: pa-2
     template:
       name: projectA

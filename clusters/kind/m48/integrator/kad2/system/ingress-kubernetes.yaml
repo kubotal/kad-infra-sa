@@ -1,0 +1,8 @@
+componentReleases:
+
+  - name: ingress-kubernetes
+    enabled: true
+    component:
+      name: ingress-kubernetes
+      version: 1.0.0
+    namespace: ingress-nginx

@@ -12,7 +12,7 @@ spec:
     operation: copy
   url: oci://quay.io/kubotal/charts/kad-controller
   ref:
-    semver: "= 0.6.0"
+    semver: "= 0.6.0-snapshot"
 
 
 ---
@@ -41,7 +41,7 @@ spec:
     name: kad-controller
     namespace: flux-system
   values:
-    replicaCount: 2
+    replicaCount: 1
     config:
       sweepPeriod: 2m # TODO: Set to 1h after setup
       cleaner:
@@ -54,12 +54,13 @@ spec:
         - name: flux-system
           namespace: flux-system
           kadFiles:
-            - clusters/kind/mbp64/kubo5/system
-            - clusters/kind/mbp64/kubo5/deployments
+            - clusters/kind/m48/integrator/kad2/system
+            - clusters/kind/m48/integrator/kad2/deployments
             - clusters/context.yaml
             - clusters/kind/context.yaml
-            - clusters/kind/mbp64/context.yaml
-            - clusters/kind/mbp64/kubo5/context.yaml
+            - clusters/kind/m48/context.yaml
+            - clusters/kind/m48/integrator/context.yaml
+            - clusters/kind/m48/integrator/kad2/context.yaml
             - projects
             - kad-components.yaml
     logger:
