@@ -1,0 +1,108 @@
+
+extraNamespaces:
+  - name: contexts
+
+contexts:
+  - name: global
+    namespace: contexts
+    parents: []
+    context:
+      # This is for cert-manager's users
+      certificateIssuer:
+        public: cluster-odp
+        internal: cluster-internal
+    protected: true
+  - name: kind
+    namespace: contexts
+    description: For all kind based clusters
+    parents:
+      - name: global
+    context:
+      storageClass:
+        data: standard
+        workspace: standard
+      ingress:
+        className: nginx
+    protected: true
+  - name: cluster
+    namespace: contexts
+    description: Context specific to the cluster 'kubo1'
+    parents:
+      - name: kind
+    context:
+      cluster:
+        name: kubo1
+        domain: kubo1.mbp
+      ingress:
+        hostPostfix: ingress.kubo1.mbp
+        kubernetes:
+          enabled: true
+    protected: true
+#  - name: base-project
+#    description: Context for all projects
+#    context:
+#      project:
+#        name: baseProject
+#        nameSet: true
+#        description: aaaacc
+#  - name: project1
+#    description: Context specific to project1x
+#    parents:
+#      - name: base-project
+#    context:
+#      project:
+#        name: project1
+
+
+
+config:
+  kuboAppRedirects:
+    - oldPrefix: quay.io/kubocd/
+      newPrefix: host.docker.internal:5001/
+      certSecretRef:
+        name: ca-odp
+     # Other OciRepositorySpec elements
+  clusterRoles:
+    - storage
+  imageRedirects:
+
+    - oldPrefix: ghcr.io/stefanprodan/podinfo
+      newPrefix: host.docker.internal:5001/stefanprodan/podinfo
+      imagePullPolicy: Always
+
+    - oldPrefix: docker.io/bitnami/redis
+      newPrefix: host.docker.internal:5001/bitnami/redis
+
+    - oldPrefix: ghcr.io/joeferner/redis-commander
+      newPrefix: host.docker.internal:5001/joeferner/redis-commander
+
+    - oldPrefix: ghcr.io/cloudnative-pg/
+      newPrefix: host.docker.internal:5001/cloudnative-pg/
+
+
+image:
+  pullPolicy: Always
+  repository: host.docker.internal:5001/kubocd
+
+controller:
+  enabled: true
+  replicaCount: 1
+  logger:
+    mode: dev
+    level: debug
+    replicaCount: 1
+  metrics:
+    enabled: false
+    secured: false
+
+
+webhook:
+  enabled: false
+  replicaCount: 1
+  logger:
+    mode: dev
+    level: debug
+  metrics:
+    enabled: false
+    secured: false
+
