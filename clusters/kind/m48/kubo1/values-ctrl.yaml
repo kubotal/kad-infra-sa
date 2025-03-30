@@ -38,22 +38,6 @@ contexts:
         kubernetes:
           enabled: true
     protected: true
-#  - name: base-project
-#    description: Context for all projects
-#    context:
-#      project:
-#        name: baseProject
-#        nameSet: true
-#        description: aaaacc
-#  - name: project1
-#    description: Context specific to project1x
-#    parents:
-#      - name: base-project
-#    context:
-#      project:
-#        name: project1
-
-
 
 config:
   kuboAppRedirects:
@@ -68,7 +52,6 @@ config:
 
     - oldPrefix: ghcr.io/stefanprodan/podinfo
       newPrefix: host.docker.internal:5001/stefanprodan/podinfo
-      imagePullPolicy: Always
 
     - oldPrefix: docker.io/bitnami/redis
       newPrefix: host.docker.internal:5001/bitnami/redis
@@ -77,8 +60,26 @@ config:
       newPrefix: host.docker.internal:5001/joeferner/redis-commander
 
     - oldPrefix: ghcr.io/cloudnative-pg/
-      newPrefix: host.docker.internal:5001/cloudnative-pg/
+      newPrefix: host.docker.internal:5001/cloudnative-pg
 
+    - oldPrefix: quay.io/jetstack
+      newPrefix: host.docker.internal:5001/jetstack
+
+    - oldPrefix: quay.io/metallb
+      newPrefix: host.docker.internal:5001/metallb
+
+    - oldPrefix: quay.io/frrouting/frr
+      newPrefix: host.docker.internal:5001/frrouting/frr
+
+    - oldPrefix: registry.k8s.io/ingress-nginx
+      newPrefix: host.docker.internal:5001/ingress-nginx
+
+    - oldPrefix: registry.k8s.io/defaultbackend-amd64
+      newPrefix: host.docker.internal:5001/defaultbackend-amd64
+
+  defaultContexts:
+    - name: cluster
+      namespace: contexts
 
 image:
   pullPolicy: Always
@@ -90,7 +91,6 @@ controller:
   logger:
     mode: dev
     level: debug
-    replicaCount: 1
   metrics:
     enabled: false
     secured: false

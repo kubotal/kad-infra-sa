@@ -84,8 +84,27 @@ patches:
 cd ..../kad-infra-sa/clusters/kind/m48/kubo1
 kubectl create ns kubocd
 
-helm upgrade -i -n kubocd kubocd oci://quay.io/kubocd/charts/kubocd:v0.1.1-snapshot --values ./values1.yaml
+helm upgrade -i -n kubocd kubocd oci://quay.io/kubocd/charts/kubocd:v0.1.1-snapshot --values ./values-ctrl.yaml
+helm upgrade -i -n kubocd kubocd oci://ghcr.io/sergealexandre/kubocd/charts/kubocd:v0.1.1-snapshot --values ./values-ctrl.yaml
 ```
+
+
+```
+helm upgrade -i -n kubocd kubocd-wh oci://ghcr.io/sergealexandre/kubocd/charts/kubocd:v0.1.1-snapshot --values ./values-wh.yaml
+
+```
+
+
+```
+kubectl get releases --all-namespaces
+helm -n kubocd uninstall kubocd
+kubectl delete ns kubocd
+kubectl delete crds releases.kubocd.kubotal.io contexts.kubocd.kubotal.io configs.kubocd.kubotal.io
+
+kubectl get crds | grep kubocd
+
+```
+
 
 # Using local registry
 

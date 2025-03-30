@@ -1,0 +1,19 @@
+
+image:
+  pullPolicy: Always
+  repository: host.docker.internal:5001/kubocd
+
+controller:
+  enabled: false
+
+
+webhook:
+  enabled: true
+  replicaCount: 1
+  logger:
+    mode: dev
+    level: debug
+  metrics:
+    enabled: false
+    secured: false
+
